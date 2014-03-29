@@ -1,0 +1,61 @@
+html{
+	background-image: url("fondo.png");
+	background-color: hsl(108,50%,36%);
+}
+
+canvas{
+	float:left;
+	padding: 3%;
+}
+
+@keyframes appear
+{
+	0%   {opacity: 0;}
+	25%  {opacity: 0.;}
+	50%  {opacity: 0.25;}
+	75%  {opacity: 0.50;}
+	100% {opacity: 1;}
+}
+
+
+#rotulo{
+	float:left;
+	color: white;
+	font-family: fantasy;
+	font-size: 320%;
+	text-shadow: 5px 5px 2px darkorange;
+	transform: rotate(-10deg);
+	animation:appear 2s;
+	padding-top: 5%;
+	padding-left: 2%; 
+}	
+#rotulo2{
+	float:left;
+	color: darkorange;
+	font-family: Palatino;
+	font-weight: bold;
+	transform: rotate(-10deg);
+	animation:appear 4s;
+	padding-left: 10%; 
+	padding-top: 1%;
+}
+	
+#info{
+	float:left;
+	color: white;
+	font-family: Palatino;
+	font-weight: bold;
+	width: 220px;
+	height: 100px;
+ 	padding: 2%;
+ 	padding-top: 5%;
+}
+
+footer{
+	color: white;
+	font-family: Palatino;
+	font-size: small;
+	position: absolute;
+	bottom: 0;
+	left: 83%;
+}
