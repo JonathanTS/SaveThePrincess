@@ -465,17 +465,26 @@ var render = function () {
 		ctx.fillText("Princess is dead! Press space to try again", 40, canvas.height-24);
 	}else if (end){
 		ctx.fillText("Princesses saved: " + princessesCaught, 150, 0);	
-		ctx.fillText("You are the Hero! Press space to start again", 23, canvas.height-24);
+		ctx.fillText("You are the Hero! Press space to start again", 26, canvas.height-24);
 	}else{	
 		ctx.fillText("Princesses saved: " + princessesCaught, 150, 0);
-		if (lord)
-			ctx.fillText("You've found the only Ring!", 110, canvas.height-24);
-		else if(protection)
-			ctx.fillText("You've found the Shield!", 130, canvas.height-24);
-		else if(power)
-			ctx.fillText("You've found the Sword!", 130, canvas.height-24);
-		else
-			ctx.fillText("", 145, canvas.height-24);				
+		if (lord && !protection && !power){
+			ctx.fillText("You have the only Ring!", 110, canvas.height-24);
+		}else if(protection && !lord && !power){
+			ctx.fillText("You have the Shield!", 130, canvas.height-24);
+		}else if(power && !protection && !lord){
+			ctx.fillText("You have the Sword!", 130, canvas.height-24);
+		}else if(lord && protection && !power){
+			ctx.fillText("You have the Shield and the only Ring now!", 35, canvas.height-24);
+		}else if(lord && !protection && power){
+			ctx.fillText("You have the Sword and the only Ring now!", 35, canvas.height-24);
+		}else if(!lord && protection && power){
+			ctx.fillText("You have the Sword and the Shield now!", 47, canvas.height-24);
+		}else if(lord && protection && power){
+			ctx.fillText("You have all the weapons! You are the Lord!", 30, canvas.height-24);
+		}else{
+			ctx.fillText("", 0, canvas.height-24);				
+		}
 	}
 	
 };
