@@ -128,29 +128,19 @@ var intouch = function  (obj1,obj2) {
 		return false;
 };
 
+var around = function  (obj1,obj2) {
+	if (obj1.x <= (obj2.x + 96) && obj2.x <= (obj1.x + 96)&& obj1.y <= (obj2.y + 96) && obj2.y <= (obj1.y + 96))
+		return true;
+	else
+		return false;
+};
 
-var initpos = function(type) {
-	if ((type == "monster" || type == "princess") && (princessesCaught>=4)) {
-		var posx = Math.random() * canvas.width;
-		if (posx >= (hero.x-100) && posx <= hero.x)
-			posx = hero.x-100;
-		else if (posx <= (hero.x+100) && posx >= hero.x)
-			posx = hero.x+100;
-		else
-			posx = posx;
-		var posy = Math.random() * canvas.height;
-		if (posy >= (hero.y-100) && posy <= hero.y)
-			posy = hero.y-100;
-		else if (posy <= (hero.y+100) && posy >= hero.y)
-			posy = hero.y+100;
-		else
-			posy = posy;
-	}else{
-		var posx = Math.random() * canvas.width;
-		var posy = Math.random() * canvas.height;
-	}
+
+var initpos = function() {
 	var posxobj;
 	var posyobj;
+	var posx = Math.random() * canvas.width;
+	var posy = Math.random() * canvas.height;
 	if (posx <= 32 )
 		posxobj = 33 ;
 	else if (posx+32 >= canvas.width - 32)
@@ -182,7 +172,7 @@ var reset = function () {
 
 	hero.x = canvas.width / 2;
 	hero.y = canvas.height / 2;
-	[princess.x,princess.y]=initpos("princess");
+	[princess.x,princess.y]=initpos();
 
 
 	if (princessesCaught>=8){
@@ -191,25 +181,24 @@ var reset = function () {
 		if (princessesCaught>=9)
 			speedmonster = 200;
 		else
-			speedmonster = 150;
-		[sword.x,sword.y]=initpos("sword");
-		[ring.x,ring.y]=initpos("ring");
+			speedmonster = 120;
+		[sword.x,sword.y]=initpos();
+		[ring.x,ring.y]=initpos();
 	}else if (princessesCaught>=4){
 		if (princessesCaught>=6){
 			nummonsters = 3;
 			numstones=35;
 		}else{
 			nummonsters=2;
-			numstones=30;
+			numstones=25;
 		}	
-		speedmonster = 70 + princessesCaught*10;
-		[sword.x,sword.y]=initpos("sword");
-		[shield.x,shield.y]=initpos("shield");
+		speedmonster = 50 + princessesCaught*10;
+		[sword.x,sword.y]=initpos();
+		[shield.x,shield.y]=initpos();
 	}else{
 		nummonsters=1;
-		speedmonster = 60 + princessesCaught*30;
-		numstones=(princessesCaught+1)*4;
-
+		speedmonster = 30 + princessesCaught*30;
+		numstones=princessesCaught*4;
 	}
 	stones=new Array(numstones);
 	monsters=new Array(nummonsters)
@@ -218,8 +207,8 @@ var reset = function () {
 		monsters[i]={speed: speedmonster};
 		var monsterok=false;
 		while (monsterok!=true){
-			[monsters[i].x,monsters[i].y]=initpos("monster");
-			if ( !intouch(monsters[i],princess) && !intouch(monsters[i],hero) )
+			[monsters[i].x,monsters[i].y]=initpos();
+			if ( !around(monsters[i],princess) && !around(monsters[i],hero) )
 				monsterok=true;
 		}		
 	}
@@ -227,7 +216,7 @@ var reset = function () {
 		var stoneok = false;
 		stones[i] = {};
 		while (stoneok != true){
-			[stones[i].x,stones[i].y]=initpos("stone");
+			[stones[i].x,stones[i].y]=initpos();
 			if ( !intouch(stones[i],princess) && !intouch(stones[i],hero) && !intouch(stones[i],sword) &&  !intouch(stones[i],shield) && !intouch(stones[i],ring)){
 				stoneok=true;
 				for (var z=0;z<monsters.length;z++){
@@ -471,9 +460,9 @@ var render = function () {
 		if (lord && !protection && !power){
 			ctx.fillText("You have the only Ring!", 110, canvas.height-24);
 		}else if(protection && !lord && !power){
-			ctx.fillText("You have the Shield!", 130, canvas.height-24);
+			ctx.fillText("You have the Shield!", 145, canvas.height-24);
 		}else if(power && !protection && !lord){
-			ctx.fillText("You have the Sword!", 130, canvas.height-24);
+			ctx.fillText("You have the Sword!", 145, canvas.height-24);
 		}else if(lord && protection && !power){
 			ctx.fillText("You have the Shield and the only Ring now!", 35, canvas.height-24);
 		}else if(lord && !protection && power){
@@ -584,7 +573,8 @@ document.onkeypress=function(event){
 
 // Let's play this game!
 reset();
+var time = 1;
 var then = Date.now();
 //The setInterval() method will wait a specified number of milliseconds, and then execute a specified function, and it will continue to execute the function, once at every given time-interval.
 //Syntax: setInterval("javascript function",milliseconds);
-setInterval(main, 1); // Execute as fast as possible
+setInterval(main, time); // Execute as fast as possible
