@@ -160,6 +160,7 @@ var initpos = function() {
 
 // Reset the game when the player catches a princess
 var reset = function () {
+	var pos=[];
 	sword={};
 	if (power==true)
 		power=false;
@@ -172,8 +173,9 @@ var reset = function () {
 
 	hero.x = canvas.width / 2;
 	hero.y = canvas.height / 2;
-	[princess.x,princess.y]=initpos();
-
+	pos=initpos();
+	princess.x=pos[0];
+	princess.y=pos[1];
 
 	if (princessesCaught>=8){
 		nummonsters=4;
@@ -182,8 +184,12 @@ var reset = function () {
 			speedmonster = 200;
 		else
 			speedmonster = 120;
-		[sword.x,sword.y]=initpos();
-		[ring.x,ring.y]=initpos();
+		pos=initpos();
+		sword.x=pos[0];
+		sword.y=pos[1];
+		pos=initpos();
+		ring.x=pos[0];
+		ring.y=pos[1];
 	}else if (princessesCaught>=4){
 		if (princessesCaught>=6){
 			nummonsters = 3;
@@ -193,12 +199,16 @@ var reset = function () {
 			numstones=25;
 		}	
 		speedmonster = 50 + princessesCaught*10;
-		[sword.x,sword.y]=initpos();
-		[shield.x,shield.y]=initpos();
+		pos=initpos();
+		sword.x=pos[0];
+		sword.y=pos[1];
+		pos=initpos();
+		shield.x=pos[0];
+		shield.y=pos[1];
 	}else{
 		nummonsters=1;
 		speedmonster = 30 + princessesCaught*30;
-		numstones=princessesCaught*4;
+		numstones=princessesCaught*3;
 	}
 	stones=new Array(numstones);
 	monsters=new Array(nummonsters)
@@ -207,7 +217,9 @@ var reset = function () {
 		monsters[i]={speed: speedmonster};
 		var monsterok=false;
 		while (monsterok!=true){
-			[monsters[i].x,monsters[i].y]=initpos();
+			pos=initpos();
+			monsters[i].x=pos[0];
+			monsters[i].y=pos[1];
 			if ( !around(monsters[i],princess) && !around(monsters[i],hero) )
 				monsterok=true;
 		}		
@@ -216,7 +228,9 @@ var reset = function () {
 		var stoneok = false;
 		stones[i] = {};
 		while (stoneok != true){
-			[stones[i].x,stones[i].y]=initpos();
+			pos=initpos();
+			stones[i].x=pos[0];
+			stones[i].y=pos[1];
 			if ( !intouch(stones[i],princess) && !intouch(stones[i],hero) && !intouch(stones[i],sword) &&  !intouch(stones[i],shield) && !intouch(stones[i],ring)){
 				stoneok=true;
 				for (var z=0;z<monsters.length;z++){
