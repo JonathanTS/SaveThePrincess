@@ -207,7 +207,10 @@ var reset = function () {
 		shield.y=pos[1];
 	}else{
 		nummonsters=1;
-		speedmonster = 30 + princessesCaught*30;
+		if (princessesCaught==3)
+			speedmonster = 130;
+		else	
+			speedmonster = 30 + princessesCaught*25;
 		numstones=princessesCaught*3;
 	}
 	stones=new Array(numstones);
