@@ -475,7 +475,7 @@ var render = function () {
 	}else{	
 		ctx.fillText("Princesses saved: " + princessesCaught, 150, 0);
 		if (lord && !protection && !power){
-			ctx.fillText("You have the only Ring!", 110, canvas.height-24);
+			ctx.fillText("You have the only Ring!", 135, canvas.height-24);
 		}else if(protection && !lord && !power){
 			ctx.fillText("You have the Shield!", 145, canvas.height-24);
 		}else if(power && !protection && !lord){
